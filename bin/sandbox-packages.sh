@@ -60,7 +60,6 @@ cd -
 cd ../target/
 tar -zcvf sandbox-${SANDBOX_VERSION}-bin.tar sandbox/
 cd -
-
 # release stable version
 cp ../target/sandbox-${SANDBOX_VERSION}-bin.zip ../target/sandbox-stable-bin.zip
 cp ../target/sandbox-${SANDBOX_VERSION}-bin.tar ../target/sandbox-stable-bin.tar

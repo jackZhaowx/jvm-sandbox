@@ -90,7 +90,9 @@ public class AgentLauncher {
      */
     public static void premain(String featureString, Instrumentation inst) {
         LAUNCH_MODE = LAUNCH_MODE_AGENT;
-        install(toFeatureMap(featureString), inst);
+        final Map<String, String> featureMap = toFeatureMap2(featureString);
+        System.out.println("featureString:"+featureString+"  featureMap:"+featureMap);
+        install(featureMap, inst);
     }
 
     /**
@@ -103,6 +105,7 @@ public class AgentLauncher {
     public static void agentmain(String featureString, Instrumentation inst) {
         LAUNCH_MODE = LAUNCH_MODE_ATTACH;
         final Map<String, String> featureMap = toFeatureMap(featureString);
+        System.out.println("featureMap:"+featureMap);
         writeAttachResult(
                 getNamespace(featureMap),
                 getToken(featureMap),
@@ -330,6 +333,31 @@ public class AgentLauncher {
         return featureMap;
     }
 
+    private static Map<String, String> toFeatureMap2(final String featureString) {
+        final Map<String, String> featureMap = new LinkedHashMap<>();
+
+        // 不对空字符串进行解析
+        if (isBlankString(featureString)) {
+            return featureMap;
+        }
+
+        // KV对片段数组
+        final String[] kvPairSegmentArray = featureString.split("=");
+        if (kvPairSegmentArray.length == 0) {
+            return featureMap;
+        }
+        int count = 0;
+        for (String kvPairSegmentString : kvPairSegmentArray) {
+            if (kvPairSegmentArray.length < count + 1) {
+                break;
+            }
+            featureMap.put(kvPairSegmentArray[count], kvPairSegmentArray[count + 1]);
+            count = count + 2;
+        }
+
+        return featureMap;
+    }
+
     private static String getDefault(final Map<String, String> map, final String key, final String defaultValue) {
         return null != map
                 && !map.isEmpty()
@@ -345,12 +373,12 @@ public class AgentLauncher {
 
     // 获取主目录
     private static String getSandboxHome(final Map<String, String> featureMap) {
-        String home =  getDefault(featureMap, KEY_SANDBOX_HOME, DEFAULT_SANDBOX_HOME);
-        if( isWindows() ){
+        String home = getDefault(featureMap, KEY_SANDBOX_HOME, DEFAULT_SANDBOX_HOME);
+        if (isWindows()) {
             Matcher m = Pattern.compile("(?i)^[/\\\\]([a-z])[/\\\\]").matcher(home);
-            if( m.find() ){
+            if (m.find()) {
                 home = m.replaceFirst("$1:/");
-            }            
+            }
         }
         return home;
     }

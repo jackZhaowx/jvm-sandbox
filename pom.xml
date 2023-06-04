@@ -10,90 +10,12 @@
     <name>sandbox ${sandbox.version}</name>
 
     <description>Alibaba JVM-SANDBOX OpenSource Project</description>
-    <url>https://github.com/alibaba/jvm-sandbox</url>
 
-    <licenses>
-        <license>
-            <name>GPLv3</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
-        </license>
-    </licenses>
-    <organization>
-        <name>Alibaba Open Source</name>
-        <url>https://github.com/alibaba</url>
-    </organization>
-    <developers>
-        <developer>
-            <name>luanjia</name>
-            <email>dongchenxu_seu@163.com</email>
-            <organization>Alibaba Open Source</organization>
-            <organizationUrl>https://github.com/alibaba</organizationUrl>
-        </developer>
-        <developer>
-            <name>vlinux</name>
-            <email>oldmanpushcart@gmail.com</email>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:https://github.com/alibaba/jvm-sandbox.git</connection>
-        <developerConnection>scm:git:https://github.com/alibaba/jvm-sandbox.git</developerConnection>
-        <url>https://github.com/alibaba/jvm-sandbox</url>
-    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sandbox.version>1.4.0</sandbox.version>
     </properties>
-
-    <profiles>
-
-        <!-- 发布到Maven中央仓库才激活：-P sonatype -->
-        <profile>
-            <id>sonatype</id>
-            <build>
-                <plugins>
-                    <!-- 为了发布到MAVEN中央仓库而用的插件 -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>luanjia-ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <!-- 这里是为了发布到MAVEN中央仓库所做的配置 -->
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>luanjia-ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>luanjia-ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-
-    </profiles>
 
     <reporting>
         <plugins>

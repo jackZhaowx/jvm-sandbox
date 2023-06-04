@@ -6,7 +6,7 @@
 # version : 0.0.0.1
 
 typeset SANDBOX_INSTALL_PREFIX
-typeset DEFAULT_SANDBOX_INSTALL_PREFIX="${HOME}/.opt"
+typeset DEFAULT_SANDBOX_INSTALL_PREFIX="/app"
 
 # exit shell with err_code
 # $1 : err_code

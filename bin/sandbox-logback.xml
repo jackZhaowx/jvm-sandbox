@@ -2,9 +2,9 @@
 <configuration scan="true" scanPeriod="10000">
 
     <appender name="SANDBOX-FILE-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}/logs/sandbox/sandbox.log</file>
+        <file>/app/sandbox/logs/sandbox/sandbox.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${user.home}/logs/sandbox/sandbox.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>/app/sandbox/logs/sandbox/sandbox.log.%d{yyyy-MM-dd}</FileNamePattern>
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <encoder>

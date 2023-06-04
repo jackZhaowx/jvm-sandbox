@@ -11,6 +11,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.*;
 
@@ -303,7 +305,13 @@ public class CoreConfigure {
      * @return 服务器绑定IP
      */
     public String getServerIp() {
-        return StringUtils.isNotBlank(featureMap.get(KEY_SERVER_IP))
+        String localIP = "";
+        try {
+            localIP = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+        return StringUtils.isNotBlank(localIP) ? localIP : StringUtils.isNotBlank(featureMap.get(KEY_SERVER_IP))
                 ? featureMap.get(KEY_SERVER_IP)
                 : "127.0.0.1";
     }
